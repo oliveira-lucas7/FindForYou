@@ -53,5 +53,31 @@ namespace Api.Controllers
             return Ok(deleted);
         }
 
+        [HttpPost("Login")]
+        public async Task<ActionResult<dynamic>> Login ([FromBody] LoginModel userModel)
+        {
+            if (string.IsNullOrEmpty(userModel.UsuarioEmail) || string.IsNullOrEmpty(userModel.UsuarioSenha)) 
+            { 
+                return BadRequest("Email e Senha são obrigatórios");
+            }
+            UsuarioModel userLogin = await _usuarioRepositorio.GetByEmail(userModel.UsuarioEmail);
+
+            if (userLogin == null) 
+            { 
+                return BadRequest(new {sucess = false});
+            }
+
+            bool isPasswordCorrect = userLogin.UsuarioSenha == userModel.UsuarioEmail;
+
+            if (isPasswordCorrect) 
+            {
+                return Ok(new { sucess = true, user = userLogin});
+            }
+            else
+            {
+                return Unauthorized(new { sucess = false });
+            }
+        }
+
     }
 }
