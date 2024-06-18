@@ -5,6 +5,8 @@ namespace Api.Repositorios.Interfaces
     public interface IObjetoRepositorio
     {
         Task<List<ObjetoModel>> GetAll();
+        Task<List<ObjetoModel>> GetAllStatus1();
+
 
         Task<ObjetoModel> GetById(int id);
 

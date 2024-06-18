@@ -25,6 +25,13 @@ namespace Api.Controllers
             return Ok(objetos);
         }
 
+        [HttpGet("GetAllStatus1")]
+        public async Task<ActionResult<List<ObjetoModel>>> GetAllStatus1()
+        {
+            List<ObjetoModel> objetos = await _objetoRepositorio.GetAllStatus1();
+            return Ok(objetos);
+        }
+
         [HttpGet("GetObjetoId/{id}")]
         public async Task<ActionResult<ObjetoModel>> GetObjetoId(int id)
         {
